@@ -24,6 +24,25 @@ class Hero:
         self.health = health
         self.speed = speed
 
+
+    def use_power(self, power: str):
+        if self.health == 0:
+            print(f"{self.name} is dead, he can't use powers")
+            return
+        if power in self.power:
+            print(f"{self.name} used the {self.power[self.power.index(power)]} power")
+        else:
+            print(f"{self.name} doesn't have the {power} power")
+
+
+    def take_damage(self, damage: int):
+        self.health -= damage
+        if self.health <= 0:
+            self.health = 0
+            print(f"{self.name} is now dead!")
+        else:
+            print(f"{self.name} takes {damage} damage. His health is {self.health}")
+
 def main():
     iron_man = Hero("Iron Man", "Repulsor Beams", 100, 100)
     dead_pool = Hero("Deadpool", "Invulnerability", 100, 100)
