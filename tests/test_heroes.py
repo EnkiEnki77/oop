@@ -33,6 +33,25 @@ class TestHero:
         out = out.replace("\n", "")
         assert out == expected
 
+    @pytest.mark.parametrize("power, expected", [("super flexibility", "Superman doesn't have the super flexibility power")])
+    def test_use_power_with_unobtained_power(self, capfd, power, expected):
+        """Tests that use_power method prints proper statement when a power the hero doesn't have is passed as argument"""
+        self.hero.use_power(power)
+        out, err = capfd.readouterr()
+        out = out.replace("\n", "")
+        assert out == expected
+
+    @pytest.mark.parametrize("power, expected", [("laser vision", "Superman is dead, he can't use powers")])
+    def test_use_power_with_zero_health(self, capfd, power, expected):
+        """Tests that use_power method prints proper statement when a hero has zero health"""
+        self.hero.take_damage(2_000_000)
+        self.hero.use_power(power)
+        out, err = capfd.readouterr()
+        out = out.replace("\n", "")
+        out = out.replace("Superman is now dead!", "")
+        assert out == expected
+
+
 
 
 
